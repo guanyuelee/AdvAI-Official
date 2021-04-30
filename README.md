@@ -7,7 +7,8 @@ a correction module and two discriminators. Adversarial adaptive interpolation i
 implemented by incorporating the correction module to learn an additive correction,
 which reduces the mismatch between interpolation distribution and original one. 
 
-![distribution of AdvAV](image/advai_dist.png) Distributions of the original 
+![distribution of AdvAV](image/advai_dist.png) 
+Distributions of the original 
 interpolated points by using different interpolation techniques
 
 ![interpolation of AdvAV](image/advai_interp.png) Visualization of the interpolation paths determined by
@@ -43,4 +44,10 @@ Our proposed models are follows:
 
 + `gidrae2.py`: AdvAI-AE model. (code would be updated for better readability latter)
 
-Keep focusing on us, update soon. 
+Runing bash are follows: 
+
++ `train_gmi.sh`: AdvAI bash. (bash file would be added latter)
+
++ `gidrae2.sh`: AdvAI-AE bash. (bash file would be added latter)
+
+
