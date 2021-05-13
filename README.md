@@ -1,6 +1,6 @@
 # AdvAI
 Code for paper *Adversarial Adaptive Interpolation for Regularizing Representation
-Learning And Image Synthesis in Autoencoders*.
+Learning And Image Synthesis in Autoencoders*. Accepted in International Conference on Multimedia and Expo (ICME) 2021.  
 
 ![AdvAV](image/model.png) An overview of AdvAI-AE that consists of an autoencoder, 
 a correction module and two discriminators. Adversarial adaptive interpolation is 
