@@ -341,7 +341,7 @@ class AdvAdptInterpolation(BaseInterpolation):
         def gen_images():
             print('ok gen_image')
             return self.save_interpolation(
-                ops, npts=10000, npaths=15, n_ints=100)
+                ops, npts=10000, npaths=15, n_intps=100)
 
         diff, line = tf.py_func(
             gen_images, [], [tf.float32] * 2)
