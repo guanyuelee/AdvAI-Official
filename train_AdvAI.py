@@ -9,6 +9,10 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
+import matplotlib
+from mpl_toolkits.mplot3d import axes3d, Axes3D
+matplotlib.use('Agg')
+
 from absl import app
 from absl import flags
 
@@ -209,7 +213,7 @@ class BaseInterpolation(object):
         # If the dimension is 3, we will use 3-D plot.
         if self.dims == 3:
             fig = plt.figure()
-            ax = fig.add_subplot(111, projection='3d')
+            ax = Axes3D(fig)
             ax.scatter(points[:, 0], points[:, 1], points[:, 2], c='r', marker='.', label='prior')
             ax.scatter(int_ppoints[:, 0], int_ppoints[:, 1], int_ppoints[:, 2], c='b', marker='.', label='free')
             ax.set_xlabel('X Label')
@@ -220,7 +224,7 @@ class BaseInterpolation(object):
             plt.close()
 
             fig = plt.figure()
-            ax = fig.add_subplot(111, projection='3d')
+            ax = Axes3D(fig)
             ax.scatter(points[:, 0], points[:, 1], points[:, 2], c='r', marker='.', label='prior')
             ax.scatter(int_points[:, 0], int_points[:, 1], int_points[:, 2], c='b', marker='.', label='free')
             plt.legend()
@@ -245,6 +249,8 @@ class BaseInterpolation(object):
             plt.legend()
             plt.savefig(os.path.join(self.image_dir, str(self.cur_epochs >> 10) + '_distribution.png'))
             plt.close()
+        else:
+            raise NotImplemented('Please Specify the dimension of prior by FLAG.dims. ')
 
         d_np = plt.imread(os.path.join(self.image_dir, str(self.cur_epochs >> 10) + '_distribution.png'))
         p_np = plt.imread(os.path.join(self.image_dir, str(self.cur_epochs >> 10) + '_path.png'))
@@ -341,7 +347,7 @@ class AdvAdptInterpolation(BaseInterpolation):
         def gen_images():
             print('ok gen_image')
             return self.save_interpolation(
-                ops, npts=10000, npaths=15, n_intps=100)
+                ops, npts=FLAGS.npts, npaths=15, n_intps=FLAGS.n_intps)
 
         diff, line = tf.py_func(
             gen_images, [], [tf.float32] * 2)
@@ -389,6 +395,8 @@ if __name__ == '__main__':
     flags.DEFINE_integer('dims', 2, 'dimension of the prior. ')
     flags.DEFINE_integer('units', 100, 'dimension of the hidden units. ')
     flags.DEFINE_float('wa', 0.05, 'scale the interpolation loss. ')
+    flags.DEFINE_integer('npts', 1000, 'The number of points to visualize the original distribution. ')
+    flags.DEFINE_integer('n_intps', 1000, 'The number of points to visualize the original distribution. ')
 
     app.run(main)
 
